@@ -3,8 +3,7 @@
 **Live Demo:** [**https://your-project-link.netlify.app**](https://serenity-keys.netlify.app)
 
 
-[!image](https://github.com/Mohid-Master/Serenity-Keys/blob/main/screenshot.png)
-
+![Screenshot](files/screenshot.png)
 ## Overview
 
 Serenity Keys is a relaxing and responsive rhythm game built entirely with modern web technologies. Instead of frantic, high-speed gameplay, it offers a calming musical journey where users can play along to predefined tracks or **upload any song from their own library**. The game analyzes music in **real-time** to generate a dynamic and playable tile map, ensuring a unique experience with every song.
