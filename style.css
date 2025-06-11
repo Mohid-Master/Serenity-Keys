@@ -1,0 +1,316 @@
+:root {
+    --bg-start: #0f0c29;
+    --bg-mid: #302b63;
+    --bg-end: #24243e;
+    --tile-color-1: #ff7e5f;
+    --tile-color-2: #feb47b;
+    --hit-color: #ffffff;
+    --accent-color: #81e6d9;
+    --text-color: #e2e8f0;
+    --font-family: 'Quicksand', sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- Screens & UI Elements --- */
+.screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-top: 0;
+}
+
+.action-btn {
+    font-family: var(--font-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 12px 24px;
+    margin: 10px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(90deg, var(--tile-color-1), var(--tile-color-2));
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+hr {
+    width: 80%;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 20px 0;
+}
+
+/* --- Game Container --- */
+#game-container {
+    width: 100%;
+    max-width: 420px;
+    height: 95vh;
+    max-height: 850px;
+    padding: 0;
+    justify-content: flex-start;
+}
+
+#game-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#now-playing {
+    font-weight: 500;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+#exit-btn {
+    background: none;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+#exit-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#game-board {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.column {
+    flex: 1;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+.column:last-child {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#hit-zone {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    opacity: 0.8;
+    box-shadow: 0 0 20px var(--accent-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#combo-display {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 0 15px white;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease-out;
+}
+#combo-display.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- Tiles --- */
+/* --- Find this block in style.css --- */
+.tile {
+    position: absolute;
+    width: 90%;
+    left: 5%;
+    /* height: 120px; We will set height in JS now */
+    /* background: linear-gradient(180deg, var(--tile-color-1), var(--tile-color-2)); */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(254, 180, 123, 0.5);
+    animation: fall linear forwards;
+    transition: height 0.1s ease-out; /* For dynamic tile size */
+}
+
+/* --- ADD these new styles for the colors --- */
+.tile-color-1 { background: linear-gradient(180deg, #ff7e5f, #feb47b); }
+.tile-color-2 { background: linear-gradient(180deg, #81e6d9, #a7f3d0); }
+.tile-color-3 { background: linear-gradient(180deg, #89f7fe, #66a6ff); }
+.tile-color-4 { background: linear-gradient(180deg, #ffdde1, #ee9ca7); }
+
+@keyframes fall {
+    from { transform: translateY(-150px); }
+    to { transform: translateY(95vh); }
+}
+
+.tile.hit {
+    animation: hit-effect 0.3s ease-out forwards;
+}
+
+@keyframes hit-effect {
+    0% { transform: scale(1.05); background: var(--hit-color); box-shadow: 0 0 25px var(--hit-color); bottom:10%;}
+    100% { transform: scale(1.2); opacity: 0; }
+}
+
+/* --- Loader --- */
+#loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-top: 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+/* ADD THIS TO THE END OF YOUR style.css FILE */
+
+.blast {
+    position: absolute;
+    bottom: 10%; /* Position it right on the hit line */
+    left: 50%; /* Center of the column */
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%); /* Center it perfectly */
+    animation: blast-effect 0.4s ease-out forwards;
+    pointer-events: none; /* Make sure it can't be clicked */
+}
+
+@keyframes blast-effect {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+/* --- ADD TO THE END OF YOUR style.css --- */
+
+/* --- Enhanced Animations --- */
+.title-wrapper {
+    animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#hit-zone {
+    /* Add a subtle pulse to the hit zone */
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 20px var(--accent-color); }
+    50% { transform: scale(1.05); box-shadow: 0 0 30px var(--accent-color); }
+    100% { transform: scale(1); box-shadow: 0 0 20px var(--accent-color); }
+}
+
+
+/* --- Responsiveness for Different Devices --- */
+
+/* For smaller phones */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.8rem;
+    }
+    .action-btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+    #game-header {
+        padding: 10px 15px;
+    }
+    #now-playing {
+        max-width: 120px; /* Give more space for score */
+        font-size: 0.8rem;
+    }
+}
+
+/* For tablets and small desktops */
+@media (min-width: 768px) {
+    #game-container {
+        max-width: 500px;
+        max-height: 900px;
+    }
+}
+
+/* For landscape mode on phones */
+@media (max-height: 500px) and (orientation: landscape) {
+    #start-screen, #song-selection-screen {
+        padding: 1rem; /* Reduce padding to fit */
+    }
+    h1 {
+        font-size: 2.5rem;
+    }
+    p {
+        margin-bottom: 1rem;
+    }
+    #game-container {
+        height: 100vh; /* Fill the short screen */
+        width: 100vw;
+        max-width: none;
+        max-height: none;
+        border-radius: 0;
+    }
+}

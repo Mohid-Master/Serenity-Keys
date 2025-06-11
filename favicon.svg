@@ -1,0 +1,15 @@
+<!-- Save as favicon.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="10" height="40" x="15" y="30" fill="#81e6d9" rx="5">
+    <animate attributeName="height" values="40;80;40" dur="1s" repeatCount="indefinite" />
+    <animate attributeName="y" values="30;10;30" dur="1s" repeatCount="indefinite" />
+  </rect>
+  <rect width="10" height="60" x="45" y="20" fill="#a7f3d0" rx="5">
+    <animate attributeName="height" values="60;30;60" dur="1s" repeatCount="indefinite" />
+    <animate attributeName="y" values="20;35;20" dur="1s" repeatCount="indefinite" />
+  </rect>
+  <rect width="10" height="30" x="75" y="35" fill="#feb47b" rx="5">
+    <animate attributeName="height" values="30;70;30" dur="1s" repeatCount="indefinite" />
+    <animate attributeName="y" values="35;15;35" dur="1s" repeatCount="indefinite" />
+  </rect>
+</svg>

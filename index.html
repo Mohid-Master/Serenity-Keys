@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serenity Keys</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <!-- ADD THIS SCRIPT TAG -->
+    <script src="https://cdn.jsdelivr.net/npm/meyda@5.6.3/dist/web/meyda.min.js"></script>
+
+</head>
+<body>
+
+    <!-- The rest of your body content remains the same -->
+    <!-- Inside your index.html body, find the #start-screen and modify it -->
+<div id="start-screen" class="screen">
+    <div class="title-wrapper"> <!-- Add this wrapper -->
+        <h1>Serenity Keys</h1>
+        <p>A calming musical journey.</p>
+    </div>
+    <button id="start-btn" class="action-btn">Begin</button>
+</div>
+
+    <div id="song-selection-screen" class="screen hidden">
+        <h2>Choose Your Melody</h2>
+        <div class="song-list">
+            <button class="song-choice action-btn" data-song="song1">Udne Laga (Mashup)</button>
+            <hr>
+            <label for="audio-upload" class="action-btn upload-btn">
+                <span>Upload Your Own Song</span>
+            </label>
+            <input type="file" id="audio-upload" accept="audio/*" class="hidden">
+        </div>
+        <div id="loading-spinner" class="hidden"></div>
+    </div>
+
+    <div id="game-container" class="screen hidden">
+        <div id="game-header">
+            <div id="score-display">Score: 0</div>
+            <div id="now-playing"></div>
+            <button id="exit-btn">Exit</button>
+        </div>
+        <div id="game-board">
+            <div class="column" data-col="1"></div>
+            <div class="column" data-col="2"></div>
+            <div class="column" data-col="3"></div>
+            <div class="column" data-col="4"></div>
+        </div>
+        <div id="hit-zone">
+            <div id="combo-display"></div>
+        </div>
+    </div>
+
+    <audio id="game-audio"></audio>
+
+    <!-- Your script.js is loaded last -->
+    <script src="script.js"></script>
+
+</body>
+</html>
